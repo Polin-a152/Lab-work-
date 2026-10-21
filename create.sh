@@ -4,7 +4,7 @@ TEST_DIR="./log"
 FILE_COUNT=10
 SIZE="10k"
 
-echo "Создание тестовой папки: $TEST_DIR"
+echo "Creating a text folder: $TEST_DIR"
 
 mkdir -p "$TEST_DIR"
 
@@ -14,7 +14,7 @@ for ((i=1; i<=FILE_COUNT; i++)); do
     MINUTES_AGO=$(( i * 10 ))
     touch -d "$MINUTES_AGO minutes ago" "$FILENAME"
     
-    echo "Создан: $FILENAME (изменен $MINUTES_AGO минут назад)"
+    echo "Created: $FILENAME (changed $MINUTES_AGO minute ago)"
 done
 
-echo "Готово! Создано $FILE_COUNT файлов в папке $TEST_DIR"
+echo "Done! Created $FILE_COUNT files in the folder $TEST_DIR"
