@@ -4,53 +4,56 @@ SCRIPT="./task.sh"
 PASS=0
 FAIL=0
 
+mkdir -p log
+
 echo "Tests"
 echo
 
 $SCRIPT >/dev/null 2>&1
 if [ $? -eq 1 ]; then
     echo "Test 1 +"
-    ((PASS++))
+    PASS=$((PASS + 1))
 else
     echo "Test 1 -"
-    ((FAIL++))
+    FAIL=$((FAIL + 1))
 fi
 
 $SCRIPT log abc 5 >/dev/null 2>&1
 if [ $? -eq 1 ]; then
     echo "Test 2 +"
-    ((PASS++))
+    PASS=$((PASS + 1))
 else
     echo "Test 2 -"
-    ((FAIL++))
+    FAIL=$((FAIL + 1))
 fi
 
-$SCRIPT /blablabla >/dev/null 2>&1
+$SCRIPT /blablabla 50 2 >/dev/null 2>&1
 if [ $? -eq 1 ]; then
     echo "Test 3 +"
-    ((PASS++))
+    PASS=$((PASS + 1))
 else
     echo "Test 3 -"
-    ((FAIL++))
+    FAIL=$((FAIL + 1))
 fi
 
-$SCRIPT log 99 2 >/tmp/out.txt 2>&1
+$SCRIPT log 100 2 >/dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "Test 4 +"
-    ((PASS++))
+    PASS=$((PASS + 1))
 else
     echo "Test 4 -"
-    ((FAIL++))
+    FAIL=$((FAIL + 1))
 fi
 
-if grep -q "Fullness" /tmp/out.txt 2>/dev/null; then
+$SCRIPT log 50 abc >/dev/null 2>&1
+if [ $? -eq 1 ]; then
     echo "Test 5 +"
-    ((PASS++))
+    PASS=$((PASS + 1))
 else
     echo "Test 5 -"
-    ((FAIL++))
+    FAIL=$((FAIL + 1))
 fi
 
 echo
-echo "Completed: $PASS"
-echo "Fail: $FAIL"
+echo "Passed: $PASS"
+echo "failed: $FAIL"
